@@ -4,12 +4,12 @@ package Autopark;
  * Created by Dmitry on 16.11.2016.
  */
 public abstract class Transport {
-        private String model;
-        private int year;
+    private String model;
+    private int year;
 
     public Transport(String model, int year) {
         this.model = model;
-        this.year=year;
+        this.year = year;
     }
 
 
