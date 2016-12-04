@@ -13,8 +13,18 @@ public class Vehicle extends Transport {
         this.price = price;
     }
 
+
     public String getInfo() {
         return "[CarID] " + carID + " [Model] " + super.getModel() + " [Year] " + super.getYear() + " [Price] " + price + ";";
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public double getCarID() {
+
+        return carID;
     }
 }
 

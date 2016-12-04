@@ -7,6 +7,7 @@ public abstract class Transport {
     private String model;
     private int year;
 
+
     public Transport(String model, int year) {
         this.model = model;
         this.year = year;
@@ -25,8 +26,5 @@ public abstract class Transport {
         return year;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-}
 
+}
