@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  * Created by Dmitry on 16.11.2016.
  */
-public class Test {
+public class Test{
     public static void main(String args[]) {
         AutoPark cars = new AutoPark();
         Vehicle v1 = new Vehicle(1.0, 750, "Lada", 1989);
@@ -19,10 +19,11 @@ public class Test {
         cars.putCar(v3);
         cars.putCar(v4);
         cars.putCar(v5);
+        //cars.getCars();
+        //cars.getCarById(1.3);
+        //cars.getCarByYear(1989, 1999);
+        //cars.getCarByPrice(30,200000);
+        cars.deleteCarById(1.1);
         cars.getCars();
-        //cars.byID();
-        //cars.byYear();
-        cars.byPrice();
     }
 }
-

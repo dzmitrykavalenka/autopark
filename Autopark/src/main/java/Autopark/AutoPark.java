@@ -2,20 +2,18 @@ package Autopark;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 
 /**
  * Created by Dzmitry_Kavalenka on 11/17/2016.
  */
 public class AutoPark {
 
-    private List<Vehicle> cars;
+    protected List<Vehicle> cars;
 
     public AutoPark() {
         cars = new ArrayList<>();
     }
-
-    Scanner sc = new Scanner(System.in);
 
     public void putCar(Vehicle car) {
         cars.add(car);
@@ -28,16 +26,20 @@ public class AutoPark {
         }
     }
 
-    public void byID() {
-        System.out.println("Please, enter the ID of the car: ");
-        double a = sc.nextDouble();
+    public void deleteCar(Vehicle car) {
+        cars.remove(car);
+    }
+
+    public void getCarById(double a) {
+        double e = 1.0;
+        double e1 = 1.4;
         for (Vehicle v : cars) {
             try {
-                if (a < 1.0 || a > 1.5) {
-                    throw new IncorrectValueException(a);
+                if (a < e || a > e1) {
+                    throw new IncorrectValueException("Incorrect car ID");
                 }
                 if (a == v.getCarID()) {
-                    System.out.println("The car you're looking for is: " + v.getInfo());
+                    System.out.println(v.getInfo());
                 }
             } catch (IncorrectValueException exc) {
                 System.out.println(exc);
@@ -45,47 +47,61 @@ public class AutoPark {
         }
     }
 
-    public void byYear() {
-        System.out.println("Please, choose the interval of years you want to see cars in: ");
-        System.out.println("From: ");
-        int a = sc.nextInt();
-        System.out.println("To: ");
-        int b = sc.nextInt();
-        for (Vehicle v : cars) {
-            try {
-                if (a < 1989 || b > 2007) {
-                    throw new IncorrectValueException(a, b);
-                }
-                if (a >= 1989 && b <= 2007 && a <= v.getYear() && b >= v.getYear()) {
-                    System.out.println("The cars you are looking for : " + v.getInfo());
-                }
-            } catch (IncorrectValueException exc) {
-                System.out.println(exc);
-            }
-        }
-    }
-
-    public void byPrice() {
-        System.out.println("Please, choose the price range: ");
-        System.out.println("From: ");
-        int a = sc.nextInt();
-        System.out.println("To: ");
-        int b = sc.nextInt();
+    public void getCarByYear(int a, int b) {
+        List<Vehicle> cars1 = new ArrayList<>();
+        int e = 1989;
+        int e1 = 2007;
         for (Vehicle v : cars)
             try {
-                if (a < 750 || b > 5000) {
-                    throw new IncorrectValueException(a, b);
+                if ((a < e || a > e1) || (b > e1 || b < e) || a > b) {
+                    throw new IncorrectValueException("Check the correctness of parameters");
                 }
-                if (a >= 750 && b <= 5000 && a <= v.getPrice() && b >= v.getPrice()) {
-                    System.out.println("The cars you are looking for : " + v.getInfo());
-
+                if (a >= e && b <= e1 && a <= v.getYear() && b >= v.getYear()) {
+                    System.out.println(v.getInfo());
+                    cars1.add(v);
                 }
             } catch (IncorrectValueException exc) {
                 System.out.println(exc);
             }
     }
 
+
+    public void getCarByPrice(int a, int b) {
+        List<Vehicle> cars1 = new ArrayList<>();
+        int e = 750;
+        int e1 = 5000;
+        for (Vehicle v : cars)
+            try {
+                if (a > e1 || b < e || a > b) {
+                    throw new IncorrectValueException("Incorrect price range");
+                }
+                if (a <= v.getPrice() && b >= v.getPrice()) {
+                    System.out.println(v.getInfo());
+                    cars1.add(v);
+                }
+            } catch (IncorrectValueException exc) {
+                System.out.println(exc);
+            }
+    }
+
+    public void deleteCarById(double a) {
+        double e = 1.0;
+        double e1 = 1.4;
+        for (Vehicle v : cars)
+            try {
+                if (a < e || a > e1) {
+                    throw new IncorrectValueException("Incorrect car ID");
+                }
+                if (a == v.getCarID()) {
+                    deleteCar(v);
+                    break;
+                }
+            } catch (IncorrectValueException exc) {
+                System.out.println(exc);
+            }
+    }
 }
+
 
 
 
