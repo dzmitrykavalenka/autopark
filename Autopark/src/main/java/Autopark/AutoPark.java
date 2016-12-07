@@ -30,78 +30,70 @@ public class AutoPark {
         cars.remove(car);
     }
 
-    public void getCarById(double a) {
+    public void getCarById(double a) throws IncorrectValueException {
         double e = 1.0;
         double e1 = 1.4;
-        for (Vehicle v : cars) {
-            try {
-                if (a < e || a > e1) {
-                    throw new IncorrectValueException("Incorrect car ID");
-                }
+        if (a < e || a > e1) {
+            throw new IncorrectValueException("Incorrect car ID");
+        } else {
+            for (Vehicle v : cars) {
                 if (a == v.getCarID()) {
                     System.out.println(v.getInfo());
                 }
-            } catch (IncorrectValueException exc) {
-                System.out.println(exc);
             }
         }
     }
 
-    public void getCarByYear(int a, int b) {
+
+    public void getCarByYear(int a, int b) throws IncorrectValueException {
         List<Vehicle> cars1 = new ArrayList<>();
         int e = 1989;
         int e1 = 2007;
-        for (Vehicle v : cars)
-            try {
-                if ((a < e || a > e1) || (b > e1 || b < e) || a > b) {
-                    throw new IncorrectValueException("Check the correctness of parameters");
-                }
+        if ((a < e || a > e1) || (b > e1 || b < e) || a > b) {
+            throw new IncorrectValueException("Check the correctness of parameters");
+        } else {
+            for (Vehicle v : cars) {
                 if (a >= e && b <= e1 && a <= v.getYear() && b >= v.getYear()) {
                     System.out.println(v.getInfo());
                     cars1.add(v);
                 }
-            } catch (IncorrectValueException exc) {
-                System.out.println(exc);
             }
+        }
     }
 
 
-    public void getCarByPrice(int a, int b) {
+    public void getCarByPrice(int a, int b) throws IncorrectValueException {
         List<Vehicle> cars1 = new ArrayList<>();
         int e = 750;
         int e1 = 5000;
-        for (Vehicle v : cars)
-            try {
-                if (a > e1 || b < e || a > b) {
-                    throw new IncorrectValueException("Incorrect price range");
-                }
+        if (a > e1 || b < e || a > b) {
+            throw new IncorrectValueException("Incorrect price range");
+        } else {
+            for (Vehicle v : cars) {
                 if (a <= v.getPrice() && b >= v.getPrice()) {
                     System.out.println(v.getInfo());
                     cars1.add(v);
                 }
-            } catch (IncorrectValueException exc) {
-                System.out.println(exc);
             }
+        }
     }
 
-    public void deleteCarById(double a) {
+    public void deleteCarById(double a) throws IncorrectValueException {
         double e = 1.0;
         double e1 = 1.4;
-        for (Vehicle v : cars)
-            try {
-                if (a < e || a > e1) {
-                    throw new IncorrectValueException("Incorrect car ID");
-                }
+        if (a < e || a > e1) {
+            throw new IncorrectValueException("Incorrect car ID");
+        } else {
+            for (Vehicle v : cars) {
                 if (a == v.getCarID()) {
                     deleteCar(v);
                     break;
                 }
-            } catch (IncorrectValueException exc) {
-                System.out.println(exc);
             }
+        }
     }
-
 }
+
 
 
 

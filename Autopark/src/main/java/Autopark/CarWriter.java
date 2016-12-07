@@ -8,4 +8,5 @@ import java.io.IOException;
 public interface CarWriter {
     boolean writeVehicleData(Vehicle vehicle, String writeType);
 
+
 }
