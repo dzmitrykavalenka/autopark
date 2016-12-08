@@ -1,0 +1,42 @@
+{
+  "Lada":
+    {
+      "carID": 2.0 ,
+      "price": 1000 ,
+      "model": "Lada" ,
+      "year": 1999
+    }
+   ,
+  "Gaz":
+    {
+      "carID": 2.3 ,
+      "price": 2750 ,
+      "model": "Gaz" ,
+      "year": 2003
+    }
+   ,
+  "Mazda":
+    {
+      "carID": 2.1 ,
+      "price": 2500 ,
+      "model": "Mazda" ,
+      "year": 2005
+    }
+   ,
+  "Volga":
+    {
+      "carID": 2.2 ,
+      "price": 3000 ,
+      "model": "Volga" ,
+      "year": 2008
+    }
+   ,
+"Mersedes":
+  {
+    "carID": 2.4 ,
+    "price": 5000 ,
+    "model": "Mersedes" ,
+    "year": 2007
+  }
+
+}
