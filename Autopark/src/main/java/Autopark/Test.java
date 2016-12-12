@@ -22,11 +22,11 @@ public class Test {
         cars.putCar(v3);
         cars.putCar(v4);
         cars.putCar(v5);
-       cars.getCarById(1.1);
+     //  cars.getCarById(1.1);
         //cars.getCarByYear(1989, 2000);
         //cars.getCarByPrice(30000000,200000);
-       // cars.deleteCarById(1.1);
-        //cars.showCars();
+        cars.deleteCarById(1.1);
+        cars.showCars();
        /* cars1.writeVehicleData(v1, "2.txt");
         cars1.writeVehicleData(v2, "2.txt");
         cars1.writeVehicleData(v3, "2.txt");

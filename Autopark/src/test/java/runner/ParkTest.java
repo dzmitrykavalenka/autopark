@@ -12,96 +12,69 @@ import org.testng.annotations.Test;
  * Created by Dmitry on 11.12.2016.
  */
 public class ParkTest extends TestAutoPark {
-    @Test()
+    @Test(priority = 0)
     public void getInfo() {
-        Vehicle vehicle = new Vehicle(1.0, 750, "Lada", 1989);
-        vehicle.getInfo();
         Assert.assertEquals(vehicle.getInfo(), "[CarID] 1.0 [Model] Lada [Year] 1989 [Price] 750;");
     }
 
-    @Test()
+    @Test(priority = 1)
     public void putCar() {
-        AutoPark cars1 = new AutoPark();
-        Vehicle vehicle = new Vehicle(1.0, 750, "Lada", 1989);
         cars1.putCar(vehicle);
-        Assert.assertSame(true, cars1.getCars().contains(vehicle));
+        Assert.assertSame(cars1.getCars().contains(vehicle), true);
     }
 
-    @Test()
+    @Test(priority = 2)
     public void showCars() {
-        AutoPark cars1 = new AutoPark();
-        Vehicle vehicle = new Vehicle(1.0, 750, "Lada", 1989);
-        Vehicle vehicle1 = new Vehicle(1.2, 750, "Lada", 1989);
         cars1.putCar(vehicle);
         cars1.putCar(vehicle1);
-        cars1.showCars();
-        Assert.assertEquals(cars1.showCars().get(1).getInfo(), vehicle1.getInfo());
+        Assert.assertEquals(cars1.showCars().get(0).getInfo(), vehicle.getInfo());
     }
 
-    @Test
+    @Test(priority = 3)
     public void deleteCar() {
-        AutoPark cars1 = new AutoPark();
-        Vehicle vehicle = new Vehicle(1.0, 750, "Lada", 1989);
-        cars1.putCar(vehicle);
-        cars1.deleteCar(vehicle);
-        Assert.assertEquals(cars1.getCars().contains(vehicle), false);
+        cars1.putCar(vehicle1);
+        cars1.deleteCar(vehicle1);
+        Assert.assertEquals(cars1.getCars().contains(vehicle1), false);
     }
 
-    @Test(dataProvider = "CarID")
+    @Test(dataProvider = "CarID", priority = 4)
     public void getCarById(double a, String expected) throws IncorrectValueException {
-        AutoPark cars1 = new AutoPark();
-        Vehicle vehicle = new Vehicle(1.0, 750, "Lada", 1989);
-        Vehicle vehicle1 = new Vehicle(1.3, 2750, "Jeep", 1999);
         cars1.putCar(vehicle);
         cars1.putCar(vehicle1);
-        cars1.getCarById(a);
         Assert.assertEquals(cars1.getCarById(a).getInfo(), expected);
     }
 
 
-    @Test(expectedExceptions = IncorrectValueException.class, expectedExceptionsMessageRegExp = ".*Incorrect car ID")
+    @Test(priority = 5, expectedExceptions = IncorrectValueException.class, expectedExceptionsMessageRegExp = ".*Incorrect car ID")
     public void IncorrectValueException() throws IncorrectValueException {
-        AutoPark cars1 = new AutoPark();
         cars1.getCarById(1.8);
     }
 
-    @Test(dataProvider = "byYear")
-    public void getCarByYear(int a, int b) throws IncorrectValueException {
-        AutoPark cars1 = new AutoPark();
-        Vehicle vehicle = new Vehicle(1.0, 750, "Lada", 1989);
-        Vehicle vehicle1 = new Vehicle(1.3, 2750, "Jeep", 1999);
-        Vehicle vehicle2 = new Vehicle(1.4, 2750, "Mazda", 2005);
+    @Test(priority = 6, dataProvider = "byYear")
+    public void getCarByYear(int a, int b, Vehicle v) throws IncorrectValueException {
         cars1.putCar(vehicle);
         cars1.putCar(vehicle1);
         cars1.putCar(vehicle2);
-        cars1.getCarByYear(a, b);
-        Assert.assertEquals(cars1.getCarByYear(a, b).contains(vehicle1), true);
+        Assert.assertEquals(cars1.getCarByYear(a, b).contains(v), true);
     }
 
-    @Test
-    public void deleteCarByID() throws IncorrectValueException {
-        AutoPark cars1 = new AutoPark();
-        Vehicle vehicle = new Vehicle(1.0, 750, "Lada", 1989);
-        Vehicle vehicle1 = new Vehicle(1.3, 2750, "Jeep", 1999);
-        Vehicle vehicle2 = new Vehicle(1.4, 2750, "Mazda", 2005);
+    @Test(priority = 7, dataProvider = "deleteById")
+    public void deleteCarByID(double a, Vehicle v) throws IncorrectValueException {
         cars1.putCar(vehicle);
+        cars1.deleteCarById(a);
         cars1.putCar(vehicle1);
+        cars1.deleteCarById(a);
         cars1.putCar(vehicle2);
-        cars1.deleteCarById(1.3);
-        Assert.assertEquals(cars1.getCars().contains(vehicle1), false);
+        cars1.deleteCarById(a);
+        Assert.assertEquals(cars1.getCars().contains(v), false);
     }
 
-    @Test(dataProvider = "byPrice")
-    public void getCarByPrice(int a, int b) throws IncorrectValueException {
-        AutoPark cars1 = new AutoPark();
-        Vehicle vehicle = new Vehicle(1.0, 750, "Lada", 1989);
-        Vehicle vehicle1 = new Vehicle(1.3, 2750, "Jeep", 1999);
-        Vehicle vehicle2 = new Vehicle(1.4, 4000, "Mazda", 2005);
+    @Test(priority = 8, dataProvider = "byPrice")
+    public void getCarByPrice(int a, int b, Vehicle v) throws IncorrectValueException {
         cars1.putCar(vehicle);
         cars1.putCar(vehicle1);
         cars1.putCar(vehicle2);
-        cars1.getCarByPrice(a, b);
-        Assert.assertEquals(true, cars1.getCarByPrice(a, b).contains(vehicle));
+        Assert.assertEquals(cars1.getCarByPrice(a, b).contains(v), true);
     }
 
 
@@ -116,18 +89,30 @@ public class ParkTest extends TestAutoPark {
     @DataProvider(name = "byYear")
     public Object[][] Year() {
         return new Object[][]{
-                {1989, 2000},
-                {2000, 2007}
+                {1989, 1995, vehicle},
+                {1995, 2000, vehicle1},
+                {2000, 2007, vehicle2}
         };
     }
 
     @DataProvider(name = "byPrice")
     public Object[][] Price() {
         return new Object[][]{
-                {500, 2000},
-                {2000, 5000}
+                {0, 1000, vehicle},
+                {2000, 3000, vehicle1},
+                {3000, 5000, vehicle2}
         };
     }
+
+    @DataProvider(name = "deleteById")
+    public Object[][] deleteCarID() {
+        return new Object[][]{
+                {1.0, vehicle},
+                {1.3, vehicle1},
+                {1.4, vehicle2}
+        };
+    }
+
 }
 
 

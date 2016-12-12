@@ -90,7 +90,7 @@ public class AutoPark {
 
     public Vehicle deleteCarById(double a) throws IncorrectValueException {
         double e = 1.0;
-        double e1 = 1.4;
+        double e1 = 1.5;
         if (a < e || a > e1) {
             throw new IncorrectValueException("Incorrect car ID");
         } else
@@ -98,7 +98,6 @@ public class AutoPark {
 
                 if (a == v.getCarID()) {
                     deleteCar(v);
-                    //break;
                     return v;
                 }
                 return null;
