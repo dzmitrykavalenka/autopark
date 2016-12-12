@@ -19,11 +19,11 @@ public class CarWriterClass implements CarWriter {
             Writer fw = new FileWriter(file, true);
             BufferedWriter out = new BufferedWriter(fw);
             Gson json = new GsonBuilder().setPrettyPrinting().create();
-            if (file.equals(TXT_FILE)) {
+            if (writeType.contains(TXT_FILE)) {
                 out.write(vehicle.getInfo());
                 out.newLine();
                 out.close();
-            }else{
+            }else{if(writeType.contains(JSON_FILE))
                 out.write(json.toJson(vehicle));
                 out.newLine();
                 out.close();

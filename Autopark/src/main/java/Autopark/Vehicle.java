@@ -1,5 +1,7 @@
 package Autopark;
 
+import java.util.List;
+
 /**
  * Created by Dmitry on 16.11.2016.
  */
@@ -12,7 +14,6 @@ public class Vehicle extends Transport {
         this.carID = carID;
         this.price = price;
     }
-
 
     public String getInfo() {
         return "[CarID] " + carID + " [Model] " + super.getModel() + " [Year] " + super.getYear() + " [Price] " + price + ";";

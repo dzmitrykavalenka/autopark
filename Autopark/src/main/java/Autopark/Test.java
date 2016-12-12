@@ -22,23 +22,25 @@ public class Test {
         cars.putCar(v3);
         cars.putCar(v4);
         cars.putCar(v5);
-        //cars.getCars();
-        //cars.getCarById(1.4);
-        //cars.getCarByYear(1989, 1000);
+       cars.getCarById(1.1);
+        //cars.getCarByYear(1989, 2000);
         //cars.getCarByPrice(30000000,200000);
-        //cars.deleteCarById(2);
-        //cars.getCars();
+       // cars.deleteCarById(1.1);
+        //cars.showCars();
        /* cars1.writeVehicleData(v1, "2.txt");
         cars1.writeVehicleData(v2, "2.txt");
         cars1.writeVehicleData(v3, "2.txt");
         cars1.writeVehicleData(v4, "2.txt");
-        cars1.writeVehicleData(v5, "2.txt");
-      /*cars1.writeVehicleData(v1, "1.JSON");
-        cars1.writeVehicleData(v2, "1.JSON");
-        cars1.writeVehicleData(v3, "1.JSON");
-        cars1.writeVehicleData(v4, "1.JSON");
-        cars1.writeVehicleData(v5, "1.JSON");*/
-        cars2.readVehicleData("1.Json");
+        cars1.writeVehicleData(v5, "2.txt");*/
+      /*cars1.writeVehicleData(v1, "2.json");
+        cars1.writeVehicleData(v2, "2.json");
+        cars1.writeVehicleData(v3, "2.json");
+        cars1.writeVehicleData(v4, "2.json");
+        cars1.writeVehicleData(v5, "2.json");*/
+       // cars2.readVehicleData("2.json");
+        //cars.putCar(cars2.readVehicleData("2.json"));
+       // cars2.read("2.json");
+        //cars.getCars();
 
     }
 }

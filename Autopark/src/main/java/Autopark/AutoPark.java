@@ -1,6 +1,7 @@
 package Autopark;
 
 import com.google.gson.JsonElement;
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  * Created by Dzmitry_Kavalenka on 11/17/2016.
  */
 public class AutoPark {
+
 
     protected List<Vehicle> cars;
 
@@ -21,18 +23,24 @@ public class AutoPark {
         cars.add(car);
     }
 
+    public List<Vehicle> getCars() {
+        return cars;
+    }
 
-    public void getCars() {
+    public List<Vehicle> showCars() {
+        List<Vehicle> cars1 = new ArrayList<>();
         for (Vehicle v : cars) {
+            cars1.add(v);
             System.out.println(v.getInfo());
         }
+        return cars1;
     }
 
     public void deleteCar(Vehicle car) {
         cars.remove(car);
     }
 
-    public void getCarById(double a) throws IncorrectValueException {
+    public Vehicle getCarById(double a) throws IncorrectValueException {
         double e = 1.0;
         double e1 = 1.4;
         if (a < e || a > e1) {
@@ -41,28 +49,32 @@ public class AutoPark {
             for (Vehicle v : cars) {
                 if (a == v.getCarID()) {
                     System.out.println(v.getInfo());
+                    return v;
                 }
             }
+        return null;
     }
 
-    public void getCarByYear(int a, int b) throws IncorrectValueException {
+    public List<Vehicle> getCarByYear(int a, int b) throws IncorrectValueException {
         List<Vehicle> cars1 = new ArrayList<>();
         int e = 1989;
         int e1 = 2007;
         if ((a < e || a > e1) || (b > e1 || b < e) || a > b) {
             throw new IncorrectValueException("Check the correctness of parameters");
         } else
-            for (Vehicle v : cars)
-                if (a >= e && b <= e1 && a <= v.getYear() && b >= v.getYear()) {
-                    System.out.println(v.getInfo());
-                    cars1.add(v);
+            for (Vehicle v1 : cars) {
+                if (a >= e && b <= e1 && a <= v1.getYear() && b >= v1.getYear()) {
+                  System.out.println(v1.getInfo());
+                    cars1.add(v1);
                 }
+            }
+        return cars1;
     }
 
 
-    public void getCarByPrice(int a, int b) throws IncorrectValueException {
+    public List<Vehicle> getCarByPrice(int a, int b) throws IncorrectValueException {
         List<Vehicle> cars1 = new ArrayList<>();
-        int e = 750;
+        int e = 0;
         int e1 = 5000;
         if (a > e1 || b < e || a > b) {
             throw new IncorrectValueException("Incorrect price range");
@@ -73,9 +85,10 @@ public class AutoPark {
                     System.out.println(v.getInfo());
                     cars1.add(v);
                 }
+                return  cars1;
     }
 
-    public void deleteCarById(double a) throws IncorrectValueException {
+    public Vehicle deleteCarById(double a) throws IncorrectValueException {
         double e = 1.0;
         double e1 = 1.4;
         if (a < e || a > e1) {
@@ -85,8 +98,10 @@ public class AutoPark {
 
                 if (a == v.getCarID()) {
                     deleteCar(v);
-                    break;
+                    //break;
+                    return v;
                 }
+                return null;
     }
 }
 

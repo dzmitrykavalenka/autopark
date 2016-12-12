@@ -1,58 +1,117 @@
 package Autopark;
 
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Type;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Dmitry on 07.12.2016.
  */
 public class CarReaderClass implements CarReader {
-    List<String> cars = new ArrayList<>();
-    List<JsonElement> cars1 = new ArrayList<>();
-    final static String JSON_FILE = "json";
-    final static String TXT_FILE = "2.txt";
+    final static String JSON_FILE = "2.json";
+    final static String TXT_FILE = "txt";
+    final static String TAKSOPARK_FILE_NAME_JSON = "2.json";
     double carID;
     int price;
     String model;
     int year;
 
     @Override
-    public Vehicle readVehicleData(String pathName) throws IOException {
-        File file = new File(pathName);
-        FileReader fr = new FileReader(file);
-        BufferedReader in = new BufferedReader(fr);
-        if (pathName.equals(TXT_FILE)) {
-            String line;
-            while ((line = in.readLine()) != null) {
-                cars.add(line);
+    public Vehicle readVehicleData(String pathName) {
+        if (pathName.contains(TXT_FILE)) {
+            File file = new File(pathName);
+            FileReader fr = null;
+            try {
+                fr = new FileReader(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
-            in.close();
-            System.out.print(cars);
-        } else {
-            JsonParser parse = new JsonParser();
-            JsonObject obj = (JsonObject) parse.parse(in);
-            ///JsonArray arr = obj.getAsJsonArray("cars");
-            cars1.add(obj.get("Lada"));
-            cars1.add(obj.get("Gaz"));
-            cars1.add(obj.get("Mazda"));
-            cars1.add(obj.get("Volga"));
-            cars1.add(obj.get("Mersedes"));
-            System.out.print(cars1);
-            in.close();
+            BufferedReader in = new BufferedReader(fr);
 
+            String line;
+            try {
+                while ((line = in.readLine()) != null) {
+                }
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else
+            if (pathName.contains(JSON_FILE)) {
+                File file = new File(pathName);
+                FileReader fr = null;
+                try {
+                    fr = new FileReader(file);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                BufferedReader in = new BufferedReader(fr);
 
+                String line;
+                String json = "";
+                try {
+                    while ((line = in.readLine()) != null) {
+                        json += line;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Gson gson = new Gson();
+                JsonObject obj;
+                obj = gson.fromJson(json, JsonObject.class);
+                carID = obj.get("carID").getAsDouble();
+                price = obj.get("price").getAsInt();
+                model = obj.get("model").getAsString();
+                year = obj.get("year").getAsInt();
+                Vehicle car = new Vehicle(carID, price, model, year);
+                return car;
+            }
+        return null;
+    }
+    public List<Vehicle> read(String pathName){
+        if (pathName.equals(TAKSOPARK_FILE_NAME_JSON)) {
+            Gson gson = new Gson();
+            File myFile = new File(pathName);
+            FileReader fileReader = null;
+            try {
+                fileReader = new FileReader(myFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line = null;
+            Map<Double, Vehicle> cars = new TreeMap();
+            String j = null;
+            Vehicle veh = null;
+            try {
+                while ((line = bufferedReader.readLine()) != null) {
+                    j = line;
+                    veh = gson.fromJson(j, Vehicle.class);
+                    cars.put(veh.getCarID(), gson.fromJson(j, Vehicle.class));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        List<Vehicle> vehicles = new ArrayList<>(cars.values());
+        return vehicles;
         }
         return null;
     }
-
 }
+
+
+
